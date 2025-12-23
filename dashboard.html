@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Academic Productivity Cloud</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <div class="background-glow"></div>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cloud-bolt"></i> APC
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">
+                    <i class="fa-solid fa-house"></i> Overview
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-folder-open"></i> My Files
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-calendar-check"></i> Schedule
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-clock"></i> Smart Timer
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-gear"></i> Settings
+                </a>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar">AO</div>
+                <div class="user-info">
+                    <h4>Abdifataah Omar</h4>
+                    <p>Student Plan</p>
+                </div>
+                <a href="index.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search files, tasks, or notes...">
+                </div>
+                <div class="top-actions">
+                    <button class="icon-btn"><i class="fa-solid fa-bell"></i><span class="notification-dot"></span></button>
+                    <button class="btn-primary small"><i class="fa-solid fa-plus"></i> New Task</button>
+                </div>
+            </header>
+
+            <!-- Overview Section (Default) -->
+            <div class="content-section active" id="overview-section">
+                <div class="dashboard-grid">
+                    <!-- Welcome Section -->
+                    <div class="welcome-banner glass-card">
+                        <div class="welcome-text">
+                            <h2>Good Evening, Abdifataah! 🌙</h2>
+                            <p>You have <strong>3 assignments</strong> due this week and <strong>2 lectures</strong> tomorrow.</p>
+                        </div>
+                        <div class="progress-circle" data-percent="75">
+                            <svg>
+                                <circle cx="40" cy="40" r="35"></circle>
+                                <circle cx="40" cy="40" r="35" style="stroke-dashoffset: calc(220 - (220 * 75) / 100);"></circle>
+                            </svg>
+                            <div class="number">75%<span>Weekly Goal</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Smart Timer -->
+                    <div class="timer-card glass-card">
+                        <div class="card-header-small">
+                            <h3><i class="fa-solid fa-stopwatch"></i> Focus Timer</h3>
+                            <span class="status-badge">Ready</span>
+                        </div>
+                        <div class="timer-display">
+                            <span id="minutes">25</span>:<span id="seconds">00</span>
+                        </div>
+                        <div class="timer-controls">
+                            <button id="startTimer" class="btn-primary"><i class="fa-solid fa-play"></i> Start</button>
+                            <button id="resetTimer" class="btn-secondary"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+                        </div>
+                        <div class="timer-modes">
+                            <button class="mode-btn active" data-time="25">Focus</button>
+                            <button class="mode-btn" data-time="5">Short Break</button>
+                            <button class="mode-btn" data-time="15">Long Break</button>
+                        </div>
+                    </div>
+
+                    <!-- File Upload / Cloud Storage -->
+                    <div class="files-card glass-card">
+                        <div class="card-header-small">
+                            <h3><i class="fa-solid fa-cloud"></i> Cloud Storage</h3>
+                            <button class="btn-text">View All</button>
+                        </div>
+                        
+                        <div class="upload-zone" id="dropZone">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p>Drag & Drop files here or <span>Browse</span></p>
+                            <input type="file" id="fileInput" hidden>
+                        </div>
+
+                        <div class="file-list" id="fileList">
+                            <!-- Files will be added here via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Files Section -->
+            <div class="content-section" id="files-section">
+                <div class="section-title glass-card">
+                    <h2><i class="fa-solid fa-folder-open"></i> My Files</h2>
+                    <p>Manage your uploaded documents and files</p>
+                </div>
+                <div class="files-card glass-card">
+                    <div class="card-header-small">
+                        <h3><i class="fa-solid fa-cloud"></i> All Files</h3>
+                        <button class="btn-primary small"><i class="fa-solid fa-plus"></i> Upload New</button>
+                    </div>
+                    <div class="file-list" id="allFilesList">
+                        <!-- Files will be added here via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule Section -->
+            <div class="content-section" id="schedule-section">
+                <div class="section-title glass-card">
+                    <h2><i class="fa-solid fa-calendar-check"></i> My Schedule</h2>
+                    <p>View and manage your academic schedule</p>
+                </div>
+                <div class="schedule-container glass-card">
+                    <div class="card-header-small">
+                        <h3>This Week's Classes</h3>
+                        <button class="btn-primary small"><i class="fa-solid fa-plus"></i> Add Event</button>
+                    </div>
+                    <div class="schedule-list">
+                        <div class="schedule-item-full">
+                            <div class="schedule-time">Monday 09:00 AM</div>
+                            <div class="schedule-content">
+                                <h4>Software Engineering</h4>
+                                <p>Room 301 • Prof. Ahmed</p>
+                            </div>
+                        </div>
+                        <div class="schedule-item-full">
+                            <div class="schedule-time">Monday 11:30 AM</div>
+                            <div class="schedule-content">
+                                <h4>Data Structures</h4>
+                                <p>Room 205 • Prof. Sara</p>
+                            </div>
+                        </div>
+                        <div class="schedule-item-full">
+                            <div class="schedule-time">Tuesday 02:00 PM</div>
+                            <div class="schedule-content">
+                                <h4>Algorithms Lab</h4>
+                                <p>Lab 3 • TA: Hassan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smart Timer Section -->
+            <div class="content-section" id="timer-section">
+                <div class="section-title glass-card">
+                    <h2><i class="fa-solid fa-clock"></i> Smart Timer</h2>
+                    <p>Pomodoro technique for focused study sessions</p>
+                </div>
+                <div class="timer-card-large glass-card">
+                    <div class="timer-display-large">
+                        <span id="minutes-large">25</span>:<span id="seconds-large">00</span>
+                    </div>
+                    <div class="timer-controls">
+                        <button id="startTimer2" class="btn-primary"><i class="fa-solid fa-play"></i> Start</button>
+                        <button id="resetTimer2" class="btn-secondary"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+                    </div>
+                    <div class="timer-modes">
+                        <button class="mode-btn active" data-time="25">Focus (25min)</button>
+                        <button class="mode-btn" data-time="5">Short Break (5min)</button>
+                        <button class="mode-btn" data-time="15">Long Break (15min)</button>
+                    </div>
+                    <div class="timer-stats">
+                        <div class="stat-item">
+                            <h4>Today's Sessions</h4>
+                            <p>4 completed</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Total Focus Time</h4>
+                            <p>1h 40m</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="content-section" id="settings-section">
+                <div class="section-title glass-card">
+                    <h2><i class="fa-solid fa-gear"></i> Settings</h2>
+                    <p>Manage your account and preferences</p>
+                </div>
+                <div class="settings-card glass-card">
+                    <div class="setting-group">
+                        <h3>Account Settings</h3>
+                        <div class="setting-item">
+                            <label>Email Address</label>
+                            <input type="email" value="abdifataah@university.edu" readonly>
+                        </div>
+                        <div class="setting-item">
+                            <label>Full Name</label>
+                            <input type="text" value="Abdifataah Omar">
+                        </div>
+                        <button class="btn-primary">Save Changes</button>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Notifications</h3>
+                        <div class="setting-item">
+                            <label class="checkbox-container">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                Email notifications for deadlines
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="checkbox-container">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                Daily schedule reminders
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Floating Music Player Widget -->
+    <div class="music-player-widget glass-card">
+        <div class="music-info">
+            <div class="music-icon">
+                <i class="fa-solid fa-music"></i>
+                <div class="visualizer">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="track-details">
+                <h4 id="musicTrackName">Lofi Study Beat</h4>
+                <p>Focus Mode</p>
+            </div>
+        </div>
+        <div class="music-controls">
+            <button id="musicPlayBtn" class="icon-btn small"><i class="fa-solid fa-play"></i></button>
+            <div class="volume-control">
+                <i class="fa-solid fa-volume-low"></i>
+                <input type="range" id="musicVolume" min="0" max="100" value="50">
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
